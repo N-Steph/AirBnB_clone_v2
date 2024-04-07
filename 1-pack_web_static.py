@@ -8,7 +8,7 @@ from os.path import exists, getctime
 
 def do_pack():
     """creates a .tgz archive file for web_static folder"""
-    task = 'tar -cvzf versions/"web_static_$(date +%Y%m%d%H%M%S)" web_static'
+    task = "tar -cvzf versions/web_static_$(date +%Y%m%d%H%M%S).tgz web_static"
     if not exists("./versions"):
         local('mkdir versions')
     local(task)

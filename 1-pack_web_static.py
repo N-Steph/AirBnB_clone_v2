@@ -2,7 +2,8 @@
 """do_pack function definition"""
 
 from fabric.api import local
-from os.path import exists
+import glob
+from os.path import exists, getctime
 
 
 def do_pack():
@@ -10,5 +11,7 @@ def do_pack():
     task = 'tar -cvzf versions/"web_static_$(date +%Y%m%d%H%M%S)" web_static'
     if not exists("./versions"):
         local('mkdir versions')
-    archive = local(task)
-    return archive
+    local(task)
+    list_of_files = glob.glob('versions/*')
+    latest_file = max(list_of_files, key=getctime)
+    return latest_file

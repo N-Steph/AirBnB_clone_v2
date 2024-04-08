@@ -22,17 +22,16 @@ def do_pack():
 
 def do_deploy(archive_path):
     """deploy a web_static archive to remote servers"""
-    name = "$(basename /tmp/*.tgz .tgz)"
+    name = archive_path.split("/")[-1].split(".")[0]
     path = "/data/web_static/releases"
     command_list = [
         "mkdir -p {}/{}".format(path, name),
-        "tar -xzf /tmp/*.tgz -C {}/{}".format(path, name),
+        "tar -xzf /tmp/{}.tgz -C {}/{}".format(name, path, name),
+        "rm /tmp/{}.tgz".format(name),
         "mv {}/{}/web_static/* {}/{}/".format(path, name, path, name),
         "rm -rf {}/{}/web_static".format(path, name),
         "rm -rf /data/web_static/current",
-        "ln -s {}/{} /data/web_static/current"
-        .format(path, name),
-        "rm /tmp/*.tgz"
+        "ln -s {}/{} /data/web_static/current".format(path, name),
     ]
     results = []
 

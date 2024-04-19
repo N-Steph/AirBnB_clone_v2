@@ -1,11 +1,14 @@
 #!/usr/bin/python3
 """minimal flask application"""
 
-from web_flask.__init__ import app
+from flask import Flask
+
+
+app = Flask(__name__)
 
 
 @app.route("/hbnb", strict_slashes=False)
-def display_hbnb():
+def hbnb_route():
     """Returns 'HBNB' string to the browser"""
     return "HBNB"
 

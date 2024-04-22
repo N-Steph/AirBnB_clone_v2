@@ -22,6 +22,7 @@ def hello_HBNB():
 @app.route("/c/<text>", strict_slashes=False)
 def passing_variable(text):
     """Takes variable value from url and process it"""
+    text = text.replace("_", " ")
     return "C {}".format(text)
 
 
